@@ -1,0 +1,47 @@
+"use strict";
+
+var _express = _interopRequireDefault(require("express"));
+var _homeController = _interopRequireDefault(require("../controllers/homeController"));
+var _userController = _interopRequireDefault(require("../controllers/userController"));
+var _adminController = _interopRequireDefault(require("../controllers/adminController"));
+var _patientController = _interopRequireDefault(require("../controllers/patientController"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var router = _express["default"].Router();
+var initWebRoutes = function initWebRoutes(app) {
+  router.get('/', _homeController["default"].getHomePage);
+  router.get('/crud', _homeController["default"].getCrud);
+  router.post('/post-crud', _homeController["default"].postCrud);
+  router.get('/display-all-user', _homeController["default"].displayGetCrud);
+  router.get('/edit-crud', _homeController["default"].getEditCrud);
+  router.post('/put-crud', _homeController["default"].putCrud);
+  router.get('/delete-crud', _homeController["default"].deleteCrud);
+  router.post('/api/login', _userController["default"].handleLogin);
+  router.get('/api/get-all-users', _userController["default"].handleGetAllUsers);
+  router.post('/api/create-user', _userController["default"].handleCreateUser);
+  router["delete"]('/api/delete-user', _userController["default"].handleDeleteUser);
+  router.put('/api/edit-user', _userController["default"].handleEditUser);
+  router.get('/api/all-code', _userController["default"].getAllCode);
+  router.get('/api/top-doctor-home', _adminController["default"].getTopDoctorHome);
+  router.get('/api/get-all-doctor', _adminController["default"].getAllDoctors);
+  router.post('/api/create-markdown', _adminController["default"].createMarkDown);
+  router.post('/api/create-doctor-info', _adminController["default"].createDoctorInfo);
+  router.put('/api/update-markdown', _adminController["default"].updateMarkDown);
+  router.put('/api/update-doctor-info', _adminController["default"].updateDoctorInfo);
+  router.get('/api/get-doctor-info', _adminController["default"].getDoctorInfo);
+  router.get('/api/get-detail-doctor-by-id', _adminController["default"].getDetailDoctorById);
+  router.post('/api/create-bulk-schedules', _adminController["default"].createBulkSchedules);
+  router.put('/api/update-bulk-schedules', _adminController["default"].updateBulkSchedules);
+  router.get('/api/get-schedules', _adminController["default"].getSchedules);
+  router.post('/api/create-booking', _patientController["default"].createBooking);
+  router.post('/api/verify-booking', _patientController["default"].verifyBooking);
+  router.post('/api/create-specialty', _adminController["default"].createSpecialty);
+  router.put('/api/update-specialty', _adminController["default"].updateSpecialty);
+  router.get('/api/get-all-specialty', _adminController["default"].getAllSpecialty);
+  router.get('/api/get-specialty', _adminController["default"].getSpecialtyById);
+  router.get('/api/get-all-doctors-of-specialty', _adminController["default"].getAllDoctorsOfSpecialty);
+  router.get('/api/get-booking', _adminController["default"].getBooking);
+  router.put('/api/update-booking-status', _adminController["default"].changeBookingStatus);
+  router.post('/api/send-invoice-via-email', _adminController["default"].sendInvoiceViaEmail);
+  return app.use("/", router);
+};
+module.exports = initWebRoutes;
